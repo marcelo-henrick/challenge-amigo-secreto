@@ -1,40 +1,25 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
-let amigos = [];
+const amigos = [];
+const $ = id => document.getElementById(id);
+
+const atualizarLista = () => {
+  $("listaAmigos").innerHTML = 
+    amigos.map(nome => `<li>${nome}</li>`).join('');
+};
 
 function adicionarAmigo() {
-  const input = document.getElementById('amigo');
-  const nome = input.value.trim();
-
-  if (nome === '') {
-    alert("Por favor, insira um nome.");
-    return;
-  }
-
+  const nome = $("amigo").value.trim();
+  if (!nome) return alert("Por favor, insira um nome.");
   amigos.push(nome);
-  input.value = '';
+  $("amigo").value = '';
   atualizarLista();
 }
 
-function atualizarLista() {
-  const lista = document.getElementById('listaAmigos');
-  lista.innerHTML = '';
-
-  for (let i = 0; i < amigos.length; i++) {
-    const li = document.createElement('li');
-    li.textContent = amigos[i];
-    lista.appendChild(li);
-  }
-}
-
 function sortearAmigo() {
-  if (amigos.length === 0) {
-    alert("Adicione pelo menos um nome antes de sortear.");
-    return;
-  }
-
-  const indiceSorteado = Math.floor(Math.random() * amigos.length);
-  const nomeSorteado = amigos[indiceSorteado];
-
-  const resultado = document.getElementById('resultado');
-  resultado.innerHTML = `<li>🎉 O amigo secreto sorteado foi: <strong>${nomeSorteado}</strong></li>`;
+  if (!amigos.length) 
+    return alert("Adicione pelo menos um nome antes de sortear.");
+  const nome = amigos[Math.floor(Math.random() * amigos.length)];
+  $("resultado").innerHTML =
+    `<li>🎉 O amigo secreto sorteado foi: <strong>${nome}</strong></li>`;
 }
+
